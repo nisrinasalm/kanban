@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import api from "./lib/api";
+import api from "@/lib/api";
 
 import {
   QueryClient,
@@ -12,6 +12,7 @@ const defaultQueryFn = async ({ queryKey }: QueryOptions) => {
   const { data } = await api.get(`${queryKey?.[0]}`);
   return data;
 };
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -23,7 +24,7 @@ const queryClient = new QueryClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </QueryClientProvider>
   );
 }

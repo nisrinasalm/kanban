@@ -1,36 +1,45 @@
-
 import Modal from "react-modal";
 import { IoMdClose } from "react-icons/io";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { ApiError } from 'next/dist/server/api-utils';
-import Input from "./form/Input";
-import { AxiosResponse, AxiosError } from "axios";
+import Input from "../form/Input";
 import { useMutation } from "@tanstack/react-query";
-import api from "../lib/api";
+import api from "@/lib/api";
+import { CreateTask } from "@/types/task";
+import { AxiosError, AxiosResponse } from "axios";
+import { ApiError } from "@/types/api";
 
-export type TaskData = {
-    title: string;
-    description: string;
-    dueDate: string;
+const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      width: '30%',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
 };
 
-export default function CustomModal({ open, setOpen }) {
-    const methods = useForm<TaskData>({
-        mode: 'onTouched' 
-    });
+interface AddModalProps {
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function AddModal({ open, setOpen }: AddModalProps) {
+    const methods = useForm<CreateTask>();
     
     const { handleSubmit } = methods;
-    
+
     const { mutate: TaskMutation, isPending } = useMutation({
-        mutationFn: async (data) => {
-          return await api.post("/task", data);
+        mutationFn: async (data: CreateTask) => {
+            return await api.post("/task", data);
         },
-        onSuccess: () => toast.success('Task added succesfully!'),
+        onSuccess: () => toast.success('Task added succesfully'),
         onError: () => toast.error('Task failed to add'),
     });
 
-    const onSubmit: SubmitHandler<TaskData> = async (data) => {
+    const onSubmit: SubmitHandler<CreateTask> = async (data) => {
         await TaskMutation(data);
         setOpen(false);
     };
@@ -38,12 +47,12 @@ export default function CustomModal({ open, setOpen }) {
     const closeModal = () => setOpen(false);
 
     return (
-        <Modal isOpen={open}>
+        <Modal isOpen={open} style={customStyles}>
             <FormProvider {...methods}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div>            
                         <div className="flex justify-between items-center">
-                            <h3>Add New Task</h3>
+                            <h3 className="font-semibold text-lg">Add New Task</h3>
                             <IoMdClose className="hover:cursor-pointer" onClick={closeModal}/>
                         </div>
                         <div className="flex flex-col gap-2 mt-3">
@@ -62,6 +71,11 @@ export default function CustomModal({ open, setOpen }) {
                                 label='Due Date'
                                 placeholder='Input due date'
                                 type='date'
+                            />
+                            <Input
+                                id='status'
+                                label='Status'
+                                placeholder='Input status'
                             />
                         </div>
                     </div>

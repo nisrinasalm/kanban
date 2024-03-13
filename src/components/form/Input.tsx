@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { get, RegisterOptions, useFormContext } from "react-hook-form";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import clsxm from "@/pages/lib/clsxm";
+import clsxm from "@/lib/clsxm";
 
 import LabelText from "./LabelText";
 
