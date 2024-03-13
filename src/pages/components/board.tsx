@@ -16,7 +16,7 @@ export default function Board({ title }: {title: string}) {
         },
     });
 
-    const FilterStatus = TaskData?.data?.data?.tasks.filter((task: Task) => task.status === title);
+    const FilterStatus = TaskData?.data?.data?.tasks.filter((task: Task) => task.status === title && !task.deletedAt) || [];
 
     return (
         <>

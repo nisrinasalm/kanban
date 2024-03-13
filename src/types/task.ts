@@ -16,7 +16,6 @@ export type Task = {
     _id: string;
     title: string;
     description: string;
-    tags: string[];
     dueDate: string;
     status: string;
     createdAt: string;
