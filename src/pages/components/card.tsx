@@ -25,6 +25,8 @@ export default function Card({ cardData } : { cardData: Task }) {
 
     return (
         <>
+        {cardData && (
+        <>
         <EditModal open={openEdit} setOpen={setOpenEdit} task={cardData} />
         <DeleteModal open={openDelete} setOpen={setOpenDelete} taskId={cardData._id} />
         <div className="rounded-md py-2 px-4 space-y-1 shadow-lg">
@@ -38,6 +40,8 @@ export default function Card({ cardData } : { cardData: Task }) {
             <p>{cardData.description}</p>
             <p>{cardData.dueDate}</p>
         </div>
+        </>
+        )}
         </>
     );
 }
