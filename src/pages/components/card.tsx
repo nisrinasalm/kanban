@@ -1,11 +1,7 @@
-import toast from "react-hot-toast";
-import { useQuery } from "@tanstack/react-query";
 import { Task } from "@/types/task";
 import api from "@/lib/api";
 import { BiSolidEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import clsxm from "@/lib/clsxm";
-import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import EditModal from "@/components/modal/editModal";
 import DeleteModal from "@/components/modal/deleteModal";
@@ -27,9 +23,6 @@ export default function Card({ cardData } : { cardData: Task }) {
         DeleteTask(cardData._id)
     };
 
-    const dueDate = new Date(cardData.dueDate);
-    const formattedDueDate = `${dueDate.getDate()}-${dueDate.getMonth() + 1}-${dueDate.getFullYear()}`;
-
     return (
         <>
         <EditModal open={openEdit} setOpen={setOpenEdit} task={cardData} />
@@ -43,7 +36,7 @@ export default function Card({ cardData } : { cardData: Task }) {
                 </div>
             </div>
             <p>{cardData.description}</p>
-            <p>{formattedDueDate}</p>
+            <p>{cardData.dueDate}</p>
         </div>
         </>
     );
