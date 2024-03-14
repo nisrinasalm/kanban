@@ -8,4 +8,4 @@ export const setToken = (token: string) => {
   cookies.set('@nisrinasalm/token', token, { path: '/' });
 };
 
-export const removeToken = () => cookies.remove('@sch/token', { path: '/' });
+export const removeToken = () => cookies.remove('@nisrinasalm/token', { path: '/' });
