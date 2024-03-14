@@ -12,7 +12,7 @@ export default function Board({ title }: {title: string}) {
     const { data: TaskData, isLoading } = useQuery({
         queryKey: ["/task"],
         queryFn: async (data) => {
-            return api.get("/task", data);
+            return await api.get("/task", data);
         },
     });
 
@@ -28,8 +28,8 @@ export default function Board({ title }: {title: string}) {
                 </h1>
             </div>
             <div className="space-y-3">
-                {FilterStatus.map((cardData: Task) => (
-                    <Card cardData={cardData} key={cardData._id} />
+                {FilterStatus.map((data: Task) => (
+                    <Card card={data} key={data._id} />
                 ))}
             </div>
             <div className="mt-2 flex items-center gap-2 hover:cursor-pointer text-gray-500 hover:text-gray-300" onClick={() => setOpen(true)}>

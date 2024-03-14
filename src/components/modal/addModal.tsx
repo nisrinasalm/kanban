@@ -1,11 +1,13 @@
 import Modal from "react-modal";
 import { IoMdClose } from "react-icons/io";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
-import Input from "../form/Input";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import api from "@/lib/api";
-import { CreateTask } from "@/types/task";
 import clsxm from "@/lib/clsxm";
+import { CreateTask, TaskData } from "@/types/task";
+import { ApiResponse } from "@/types/api";
+
+import Input from "../form/Input";
 
 const customStyles = {
     content: {
@@ -32,13 +34,23 @@ export default function AddModal({ open, setOpen }: AddModalProps) {
     const { handleSubmit } = methods;
 
     const { mutate: TaskMutation, isPending } = useMutation({
-        mutationFn: (data: CreateTask) => {
-            return api.post(`/task`, data);
+        mutationFn: async (data: CreateTask) => {
+            return await api.post(`/task`, data);
         },
+        onSuccess: () => {
+            refetch();
+        }
     });
 
-    const onSubmit: SubmitHandler<CreateTask> = (data) => {
-        TaskMutation(data);
+    const { data: taskData, refetch } = useQuery({
+        queryKey: ['/task'],
+        queryFn: () => {
+            return api.get<ApiResponse<TaskData>>("/task");
+        }
+    })
+
+    const onSubmit: SubmitHandler<CreateTask> = async (data) => {
+        await TaskMutation(data);
         setOpen(false);
     };
 

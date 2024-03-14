@@ -3,11 +3,13 @@ import { IoMdClose } from "react-icons/io";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
 import Input from "../form/Input";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/api";
 import { UpdateTask } from "@/types/task";
 import clsxm from "@/lib/clsxm";
 import { Task } from "@/types/task";
+import { TaskData } from "@/types/task";
+import { ApiResponse } from "@/types/api";
 
 const customStyles = {
     content: {
@@ -28,26 +30,41 @@ interface EditModalProps {
 }
 
 export default function EditModal({ open, setOpen, task }: EditModalProps) {
-    const methods = useForm<UpdateTask>();
+    const methods = useForm<UpdateTask>({
+        defaultValues: {
+            title: task.title,
+            description: task.description,
+            dueDate: task.dueDate,
+            status: task.status
+        }
+    });
     
     const { handleSubmit } = methods;
     
     const { mutate: EditTaskMutation, isPending } = useMutation({
         mutationFn: async ({
-            taskId,
-            taskData,
+            id,
+            data,
         }: {
-            taskId: string;
-            taskData: UpdateTask;
+            id: string;
+            data: UpdateTask;
         }) => {
-          return await api.put("/task/${taskId}", taskData);
+          return await api.put(`/task/${id}`, data);
         },
-        onSuccess: () => toast.success('Task edited succesfully'),
-        onError: () => toast.error('Task failed to edit'),
+        onSuccess: () => {
+            refetch();
+        }
     });
 
+    const { data: taskData, refetch } = useQuery({
+        queryKey: ['/task'],
+        queryFn: () => {
+            return api.get<ApiResponse<TaskData>>("/task");
+        }
+    })
+
     const onSubmit: SubmitHandler<UpdateTask> = async (data) => {
-        await EditTaskMutation({ taskId: task._id, taskData: data });
+        await EditTaskMutation({ id: task._id, data: data });
         setOpen(false);
     };
 

@@ -23,10 +23,10 @@ const customStyles = {
 interface DeleteModalProps {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    taskId: string;
+    id: string;
 }
 
-export default function DeleteModal({ open, setOpen, taskId }: DeleteModalProps) {    
+export default function DeleteModal({ open, setOpen, id }: DeleteModalProps) {    
     const { mutate: DeleteTaskMutation, isPending } = useMutation({
         mutationFn: async (id: string) => {
           return await api.delete("/task/${id");
@@ -62,7 +62,7 @@ export default function DeleteModal({ open, setOpen, taskId }: DeleteModalProps)
                 </button>
                 <button 
                     className="mt-3 ring-1 ring-gray-500 hover:ring-red-500 hover:ring-2 rounded-md w-full py-1 text-center"    
-                    onClick={() => handleDelete(taskId)}
+                    onClick={() => handleDelete(id)}
                 >
                     Delete
                 </button>
