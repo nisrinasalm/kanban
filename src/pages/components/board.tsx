@@ -27,7 +27,7 @@ export default function Board({ title }: {title: string}) {
                     {title}
                 </h1>
             </div>
-            <div>
+            <div className="space-y-3">
                 {FilterStatus.map((cardData: Task) => (
                     <Card cardData={cardData} key={cardData._id} />
                 ))}

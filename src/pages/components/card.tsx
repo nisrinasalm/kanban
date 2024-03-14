@@ -23,6 +23,14 @@ export default function Card({ cardData } : { cardData: Task }) {
         DeleteTask(cardData._id)
     };
 
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}-${month}-${year}`;
+    };
+
     return (
         <>
         {cardData && (
@@ -37,8 +45,8 @@ export default function Card({ cardData } : { cardData: Task }) {
                     <MdDelete className="hover:text-gray-500 hover:cursor-pointer" onClick={handleDeleteClick} />
                 </div>
             </div>
-            <p>{cardData.description}</p>
-            <p>{cardData.dueDate}</p>
+            <p className="text-gray-500">{cardData.description}</p>
+            <p className="text-gray-500">{formatDate(cardData.dueDate)}</p>
         </div>
         </>
         )}

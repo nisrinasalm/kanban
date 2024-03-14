@@ -1,13 +1,10 @@
 import Modal from "react-modal";
 import { IoMdClose } from "react-icons/io";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
-import toast from "react-hot-toast";
 import Input from "../form/Input";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/api";
 import { CreateTask } from "@/types/task";
-import { AxiosError, AxiosResponse } from "axios";
-import { ApiError } from "@/types/api";
 import clsxm from "@/lib/clsxm";
 
 const customStyles = {
@@ -28,20 +25,20 @@ interface AddModalProps {
 }
 
 export default function AddModal({ open, setOpen }: AddModalProps) {
-    const methods = useForm<CreateTask>();
-    
+    const methods = useForm<CreateTask>({
+        mode: 'onTouched' 
+    });
+
     const { handleSubmit } = methods;
 
     const { mutate: TaskMutation, isPending } = useMutation({
-        mutationFn: async (data: CreateTask) => {
-            return await api.post("/task", data);
+        mutationFn: (data: CreateTask) => {
+            return api.post(`/task`, data);
         },
-        onSuccess: () => toast.success('Task added succesfully'),
-        onError: () => toast.error('Task failed to add'),
     });
 
-    const onSubmit: SubmitHandler<CreateTask> = async (data) => {
-        await TaskMutation(data);
+    const onSubmit: SubmitHandler<CreateTask> = (data) => {
+        TaskMutation(data);
         setOpen(false);
     };
 
