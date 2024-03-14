@@ -8,6 +8,7 @@ import api from "@/lib/api";
 import { CreateTask } from "@/types/task";
 import { AxiosError, AxiosResponse } from "axios";
 import { ApiError } from "@/types/api";
+import clsxm from "@/lib/clsxm";
 
 const customStyles = {
     content: {
@@ -79,7 +80,18 @@ export default function AddModal({ open, setOpen }: AddModalProps) {
                             />
                         </div>
                     </div>
-                    <button type="submit" className="mt-3 border-2 rounded-md w-full py-2 text-center">Add task</button>
+                    <button 
+                        type="submit"
+                        className={clsxm(
+                            'bg-[#54C4DB] text-white',
+                            'hover:bg-[#06B0D2] hover:text-white',
+                            'w-full',
+                            'rounded-md py-2 text-center font-medium',
+                            'mt-4'
+                        )}
+                    >
+                        Add task
+                    </button>
                 </form>
             </FormProvider>
         </Modal>

@@ -44,51 +44,64 @@ export default function Register() {
     };
 
     return (
-        <main>
+        <main className="flex flex-col justify-center items-center h-screen w-full">
             <SEO title="Register" description="Register Page" />
-            <div className="flex flex-col pt-5">
-                <h1 className="font-bold text-4xl text-center">Register Page</h1>
-                <FormProvider {...methods}>
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                        <div className=" space-y-2 mt-3">
-                            <Input
-                                id='username'
-                                label='Username'
-                                placeholder='Input username'
-                            />
-                            <Input
-                                id='name'
-                                label='Name'
-                                placeholder='Input name'
-                            />
-                            <Input
-                                id='email'
-                                label='Email'
-                                placeholder='Input email'
-                            />
-                            <Input
-                                id='password'
-                                label='Password'
-                                placeholder='Input password'
-                                type='password'
-                            />
-                        </div>
-                        <button 
-                            type='submit'
+            <h1 className="font-bold text-4xl text-center mb-5">Register Page</h1>
+            <div className="flex flex-col md:flex-row w-full items-center justify-center">
+                <div className="hidden md:block md:w-1/2">
+                    <h1 className="text-2xl text-center font-semibold">Welcome to Kanban Board</h1>
+                </div>
+                <div className="md:w-1/2 flex flex-col items-center">
+                    <FormProvider {...methods}>
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 w-full p-4 px-16">
+                            <div className=" space-y-2 mt-3">
+                                <Input
+                                    id='username'
+                                    label='Username'
+                                    placeholder='Input username'
+                                />
+                                <Input
+                                    id='name'
+                                    label='Name'
+                                    placeholder='Input name'
+                                />
+                                <Input
+                                    id='email'
+                                    label='Email'
+                                    placeholder='Input email'
+                                />
+                                <Input
+                                    id='password'
+                                    label='Password'
+                                    placeholder='Input password'
+                                    type='password'
+                                />
+                            </div>
+                            <button 
+                                type='submit'
+                                className={clsxm(
+                                    'bg-[#54C4DB] text-white',
+                                    'hover:bg-[#06B0D2] hover:text-white',
+                                    'w-full',
+                                    'rounded-md py-2 text-center font-medium',
+                                )}
+                            >
+                                Register
+                            </button>
+                        </form>
+                    </FormProvider>
+                    <div className="flex gap-1">
+                        <p>Already have an account?</p>
+                        <Link
+                            href='/login'
                             className={clsxm(
-                                'ring-1 ring-black',
-                                'hover:ring-2',
-                                'w-full',
-                                'rounded-md py-2 text-center font-medium',
+                                'text-[#54C4DB]',
+                                'hover:text-[#06B0D2]',
                             )}
                         >
-                            Register
-                        </button>
-                    </form>
-                </FormProvider>
-                <div className="flex gap-1">
-                    <p>Already have an account?</p>
-                    <Link href='/login'>Login</Link>
+                            Login
+                        </Link>
+                    </div>
                 </div>
             </div>
         </main>

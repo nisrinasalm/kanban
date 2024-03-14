@@ -24,7 +24,8 @@ export default function Homepage() {
                 <div className="flex justify-end items-center">
                     <IoIosLogOut 
                         className={clsxm(
-                            'hover:cursor-pointer hover:text-gray-500',
+                            'text-[#FC3E3E]',
+                            'hover:cursor-pointer hover:text-[#972525]',
                             'text-2xl',
                         )}
                         onClick={handleLogout}
