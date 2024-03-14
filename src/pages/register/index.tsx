@@ -12,6 +12,7 @@ import api from "@/lib/api";
 import { ApiError, ApiResponse } from "@/types/api";
 import clsxm from "@/lib/clsxm";
 import Link from "next/link";
+import SEO from "@/components/SEO";
 
 export default function Register() {
     const methods = useForm<RegisterForm>({
@@ -43,50 +44,53 @@ export default function Register() {
     };
 
     return (
-        <div className="flex flex-col pt-5">
-            <h1 className="font-bold text-4xl text-center">Register Page</h1>
-            <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    <div className=" space-y-2 mt-3">
-                        <Input
-                            id='username'
-                            label='Username'
-                            placeholder='Input username'
-                        />
-                        <Input
-                            id='name'
-                            label='Name'
-                            placeholder='Input name'
-                        />
-                        <Input
-                            id='email'
-                            label='Email'
-                            placeholder='Input email'
-                        />
-                        <Input
-                            id='password'
-                            label='Password'
-                            placeholder='Input password'
-                            type='password'
-                        />
-                    </div>
-                    <button 
-                        type='submit'
-                        className={clsxm(
-                            'ring-1 ring-black',
-                            'hover:ring-2',
-                            'w-full',
-                            'rounded-md py-2 text-center font-medium',
-                        )}
-                    >
-                        Register
-                    </button>
-                </form>
-            </FormProvider>
-            <div className="flex gap-1">
-                <p>Already have an account?</p>
-                <Link href='/login'>Login</Link>
+        <main>
+            <SEO title="Register" description="Register Page" />
+            <div className="flex flex-col pt-5">
+                <h1 className="font-bold text-4xl text-center">Register Page</h1>
+                <FormProvider {...methods}>
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                        <div className=" space-y-2 mt-3">
+                            <Input
+                                id='username'
+                                label='Username'
+                                placeholder='Input username'
+                            />
+                            <Input
+                                id='name'
+                                label='Name'
+                                placeholder='Input name'
+                            />
+                            <Input
+                                id='email'
+                                label='Email'
+                                placeholder='Input email'
+                            />
+                            <Input
+                                id='password'
+                                label='Password'
+                                placeholder='Input password'
+                                type='password'
+                            />
+                        </div>
+                        <button 
+                            type='submit'
+                            className={clsxm(
+                                'ring-1 ring-black',
+                                'hover:ring-2',
+                                'w-full',
+                                'rounded-md py-2 text-center font-medium',
+                            )}
+                        >
+                            Register
+                        </button>
+                    </form>
+                </FormProvider>
+                <div className="flex gap-1">
+                    <p>Already have an account?</p>
+                    <Link href='/login'>Login</Link>
+                </div>
             </div>
-        </div>
+        </main>
     );
 }

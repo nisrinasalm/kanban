@@ -3,6 +3,7 @@ import { IoIosLogOut } from "react-icons/io";
 import clsxm from "@/lib/clsxm";
 import useAuthStore from "@/stores/useAuthStore";
 import { useRouter } from "next/router";
+import SEO from "@/components/SEO";
 
 export default function Homepage() {
     const { logout } = useAuthStore();
@@ -15,6 +16,7 @@ export default function Homepage() {
 
     return (
         <main className="px-2 py-5 relative w-full">
+            <SEO title="Home" description="Home Page"/>
             <div className="flex justify-between px-5">
                 <h1 className="font-bold text-2xl">
                 Kanban Board

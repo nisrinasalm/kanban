@@ -13,6 +13,7 @@ import { ApiError, ApiResponse } from "@/types/api";
 import useAuthStore from "@/stores/useAuthStore";
 import clsxm from "@/lib/clsxm";
 import Link from "next/link";
+import SEO from "@/components/SEO";
 
 export default function Login() {
     const methods = useForm<LoginForm>({
@@ -53,40 +54,43 @@ export default function Login() {
     };
 
     return (
-        <div className="flex flex-col px-96 pt-5">
-            <h1 className="font-bold text-4xl text-center">Login Page</h1>
-            <FormProvider {...methods}>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    <div className=" space-y-2 mt-3">
-                        <Input
-                            id='email'
-                            label='Email'
-                            placeholder='Input email'
-                        />
-                        <Input
-                            id='password'
-                            label='Password'
-                            placeholder='Input password'
-                            type="password"
-                        />
-                    </div>
-                    <button 
-                        type='submit'
-                        className={clsxm(
-                            'ring-1 ring-black',
-                            'hover:ring-2',
-                            'w-full',
-                            'rounded-md py-2 text-center font-medium',
-                        )}
-                    >
-                        Login
-                    </button>
-                </form>
-            </FormProvider>
-            <div className="flex gap-1">
-                <p>Dont have an account?</p>
-                <Link href='/register'>Register</Link>
+        <main>
+            <SEO title="Login" description="Login Page" />
+            <div className="flex flex-col px-96 pt-5">
+                <h1 className="font-bold text-4xl text-center">Login Page</h1>
+                <FormProvider {...methods}>
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                        <div className=" space-y-2 mt-3">
+                            <Input
+                                id='email'
+                                label='Email'
+                                placeholder='Input email'
+                            />
+                            <Input
+                                id='password'
+                                label='Password'
+                                placeholder='Input password'
+                                type="password"
+                            />
+                        </div>
+                        <button 
+                            type='submit'
+                            className={clsxm(
+                                'ring-1 ring-black',
+                                'hover:ring-2',
+                                'w-full',
+                                'rounded-md py-2 text-center font-medium',
+                            )}
+                        >
+                            Login
+                        </button>
+                    </form>
+                </FormProvider>
+                <div className="flex gap-1">
+                    <p>Dont have an account?</p>
+                    <Link href='/register'>Register</Link>
+                </div>
             </div>
-        </div>
+        </main>
     );
 }
