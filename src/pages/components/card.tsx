@@ -4,7 +4,6 @@ import { BiSolidEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { useState } from "react";
 import EditModal from "@/components/modal/editModal";
-import DeleteModal from "@/components/modal/deleteModal";
 import { ApiResponse } from "@/types/api";
 import { TaskData } from "@/types/task";
 import { useQuery } from "@tanstack/react-query";
@@ -46,7 +45,6 @@ export default function Card({ card } : { card: Task }) {
         {card && (
         <>
         <EditModal open={openEdit} setOpen={setOpenEdit} task={card} />
-        <DeleteModal open={openDelete} setOpen={setOpenDelete} id={card._id} />
         <div className="rounded-md py-2 px-4 space-y-1 shadow-lg">
             <div className="flex justify-between items-center">
                 <p className="text-base font-semibold">{card.title}</p>
