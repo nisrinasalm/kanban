@@ -1,8 +1,9 @@
-import Board from "../components/board";
+import { useRouter } from "next/router";
 import { IoIosLogOut } from "react-icons/io";
+
+import Board from "../components/board";
 import clsxm from "@/lib/clsxm";
 import useAuthStore from "@/stores/useAuthStore";
-import { useRouter } from "next/router";
 import SEO from "@/components/SEO";
 
 export default function Homepage() {

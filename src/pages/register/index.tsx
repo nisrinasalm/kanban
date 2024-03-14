@@ -1,18 +1,15 @@
-'use client';
-
-import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
+import { useMutation } from "@tanstack/react-query";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { LoginForm } from "@/types/login";
-import { RegisterForm, RegisterResponse } from "@/types/register";
 import Input from "@/components/form/Input";
-import api from "@/lib/api";
-import { ApiError, ApiResponse } from "@/types/api";
-import clsxm from "@/lib/clsxm";
-import Link from "next/link";
 import SEO from "@/components/SEO";
+import api from "@/lib/api";
+import clsxm from "@/lib/clsxm";
+import { ApiError } from "@/types/api";
+import { RegisterForm } from "@/types/register";
 
 export default function Register() {
     const methods = useForm<RegisterForm>({

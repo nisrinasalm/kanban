@@ -1,17 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
+import { useMutation } from "@tanstack/react-query";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import { LoginForm, LoginResponse } from "@/types/login";
 import Input from "@/components/form/Input";
+import SEO from "@/components/SEO";
 import api from "@/lib/api";
 import { setToken } from "@/lib/cookie";
-import { ApiError, ApiResponse } from "@/types/api";
-import useAuthStore from "@/stores/useAuthStore";
 import clsxm from "@/lib/clsxm";
-import Link from "next/link";
-import SEO from "@/components/SEO";
+import useAuthStore from "@/stores/useAuthStore";
+import { ApiError, ApiResponse } from "@/types/api";
+import { LoginForm, LoginResponse } from "@/types/login";
 
 export default function Login() {
     const methods = useForm<LoginForm>({

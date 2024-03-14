@@ -1,16 +1,14 @@
-import { Task } from "@/types/task";
-import api from "@/lib/api";
 import { BiSolidEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { useState } from "react";
-import EditModal from "@/components/modal/editModal";
-import { ApiResponse } from "@/types/api";
-import { TaskData } from "@/types/task";
 import { useQuery } from "@tanstack/react-query";
+import EditModal from "@/components/modal/editModal";
+import api from "@/lib/api";
+import { ApiResponse } from "@/types/api";
+import { TaskData, Task } from "@/types/task";
 
 export default function Card({ card } : { card: Task }) {
     const [openEdit, setOpenEdit] = useState(false);
-    const [openDelete, setOpenDelete] = useState(false);
 
     const handleEditClick = () => {
         setOpenEdit(true);
