@@ -2,11 +2,8 @@ import Modal from "react-modal";
 import { IoMdClose } from "react-icons/io";
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import toast from "react-hot-toast";
-import Input from "../form/Input";
 import { useMutation } from "@tanstack/react-query";
 import api from "@/lib/api";
-import { CreateTask } from "@/types/task";
-import clsxm from "@/lib/clsxm";
 
 const customStyles = {
     content: {
@@ -34,6 +31,13 @@ export default function DeleteModal({ open, setOpen, id }: DeleteModalProps) {
         onSuccess: () => toast.success('Task deleted succesfully'),
         onError: () => toast.error('Task failed to delete'),
     });
+
+    const { data: taskData, refetch } = useQuery({
+        queryKey: ['/task'],
+        queryFn: () => {
+            return api.get<ApiResponse<TaskData>>("/task");
+        }
+    })
 
     const handleDelete = (taskid: string) => {
         DeleteTaskMutation(taskid);

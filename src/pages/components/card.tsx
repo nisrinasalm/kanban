@@ -5,9 +5,11 @@ import { MdDelete } from "react-icons/md";
 import { useState } from "react";
 import EditModal from "@/components/modal/editModal";
 import DeleteModal from "@/components/modal/deleteModal";
+import { ApiResponse } from "@/types/api";
+import { TaskData } from "@/types/task";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Card({ card } : { card: Task }) {
-    // const [edit, setEdit] = useState(false);
     const [openEdit, setOpenEdit] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
 
@@ -15,9 +17,17 @@ export default function Card({ card } : { card: Task }) {
         setOpenEdit(true);
     }
 
-    const DeleteTask = (id: string) => {
-        return api.delete(`/task/${id}`);
-    };
+    const { data: taskData, refetch } = useQuery({
+        queryKey: ['/task'],
+        queryFn: () => {
+            return api.get<ApiResponse<TaskData>>("/task");
+        }
+    })
+
+    const DeleteTask = async (id: string) => {{
+            await api.delete(`/task/${id}`);
+            refetch();
+    }};
 
     const handleDeleteClick = () => {
         DeleteTask(card._id)
